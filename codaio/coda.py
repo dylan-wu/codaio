@@ -800,6 +800,7 @@ class Section(CodaObject):
 @attr.s(auto_attribs=True, hash=True)
 class Table(CodaObject):
     name: str
+    filter: Filter
     document: Document = attr.ib(repr=False)
     display_column: Dict = attr.ib(default=None, repr=False)
     browser_link: str = attr.ib(default=None, repr=False)
@@ -1068,6 +1069,13 @@ class Column(CodaObject):
     display: bool = attr.ib(default=None, repr=False)
     calculated: bool = attr.ib(default=False)
 
+@attr.s(auto_attribs=True, hash=True)
+class Filter(CodaObject):
+    valid: bool
+    isVolatile: bool
+    hasUserFormula: bool
+    hasTodayFormula: bool    
+    hasNowFormula: bool        
 
 @attr.s(auto_attribs=True, hash=True)
 class Row(CodaObject):
