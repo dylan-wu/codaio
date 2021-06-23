@@ -9,9 +9,14 @@ import attr
 import inflection
 from dateutil.parser import parse
 from decorator import decorator
+import warnings
 from envparse import env
 
 from codaio import err
+
+with warnings.catch_warnings(record=False):
+    warnings.simplefilter("ignore")
+    env.read_envfile()
 
 # Trying to make it compatible with eventlet
 USE_HTTPX = env("USE_HTTPX", cast=bool, default=False)
@@ -1068,6 +1073,8 @@ class Column(CodaObject):
     table: Table = attr.ib(repr=False)
     display: bool = attr.ib(default=None, repr=False)
     calculated: bool = attr.ib(default=False)
+    formula: str = attr.ib(default=None, repr=False)
+    default_value: str = attr.ib(default=None, repr=False)
 
 @attr.s(auto_attribs=True, hash=True)
 class Filter(CodaObject):
